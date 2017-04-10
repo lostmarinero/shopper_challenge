@@ -1,0 +1,13 @@
+.form-container#new-form
+  .title Apply now to join our team!
+  / .title Apply now in under 5 minutes!
+  =simple_form_for @applicant, html: { class: 'application-form' } do |f|
+    =f.error_notification
+    =f.input :first_name, placeholder: 'Jennifer'
+    =f.input :last_name, placeholder: 'Scott'
+    =f.input :email, placeholder: 'youremail@example.com'
+    =f.input :phone, placeholder: '555-555-5555'
+    =f.input :phone_type, collection: Applicant::PHONE_TYPES
+    =f.input :region, collection: Applicant::REGIONS
+    =f.button :submit, 'Continue', class: 'btn btn-lg btn-block green-btn'
+    %span.help-block Your trust is important to us - We will only use this information to communicate with you about your application.
