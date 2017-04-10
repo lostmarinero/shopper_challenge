@@ -78,5 +78,11 @@ pickle-email-*.html
 .env
 .powenv
 
-
+# Comments
 Comments.md
+
+# Linter settings
+**/.stylelintrc
+
+# Remove logs
+log/*.log
