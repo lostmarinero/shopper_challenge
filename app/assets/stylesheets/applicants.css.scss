@@ -1,0 +1,100 @@
+/*************
+ Key
+**************/
+/* 
+1. Color Styling
+2. Button Styling
+*/
+
+/*****************
+  1. Color Styling
+******************/
+
+$instacart-green: #43b02a;
+$instacart-green-hover: #338720;
+$instacart-orange: #ff8200;
+$instacart-orange-hover: #f07a00;
+$other-instacart-green: #47ad34;
+
+$text-dark-grey: #4a4a4a;
+$text-light-grey: #939291;
+$bright-white: #fff;
+$off-white: #fbfaf9;
+$card-background: #f5f5f5;
+
+/*****************
+ 2. Button Styling
+******************/
+@mixin button-white-text-color {
+  color: $bright-white;
+
+  &:hover {
+    color: $bright-white !important;
+  }
+}
+
+.green-btn{
+  background-color: $instacart-green;
+  @include button-white-text-color;
+
+  &:hover {
+    background-color: $instacart-green-hover;
+  }
+
+  &[disabled] {
+    background-color: $instacart-green;
+    opacity: 0.5;
+  }
+}
+
+.orange-btn {
+  background-color: $instacart-orange;
+  @include button-white-text-color;
+
+  &:hover {
+    background-color: $instacart-orange-hover;
+  }
+
+  &[disabled] {
+    background-color: $instacart-orange;
+    opacity: 0.5;
+  }
+}
+
+/*****************
+ 3. Row Container Defaults
+******************/
+
+.row-container {
+  background-size: cover;
+  
+  &.bg-green {
+    background-color: $other-instacart-green;
+  }
+}
+
+/*****************
+ 4. Welcome Container
+******************/
+
+.welcome-container {
+  height: 100%;
+  color: $bright-white;
+
+  .row-container {
+    height: 100%;
+
+    .content-container {
+      text-align: center;
+
+      .buttons {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      p {
+        font-size: 2rem;
+      }
+    }
+  }
+}
