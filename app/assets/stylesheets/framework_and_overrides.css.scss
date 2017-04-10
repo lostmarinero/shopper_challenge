@@ -3,6 +3,9 @@
 @import "bootstrap";
 @import "nvd3";
 
+// Default fonts
+$font-stack: 'Open Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
 // make all images responsive by default
 img {
   @extend .img-responsive;
@@ -16,12 +19,25 @@ img {
 main {
   @extend .container;
   background-color: #fff;
-  padding-bottom: 80px;
+  // padding-bottom: 80px;
   width: 100%;
+  height: 100%;
   margin-top: 51px;
+
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 section {
   @extend .row;
   margin-top: 20px;
+}
+
+html, body{
+  height:100%;
+}
+
+body {
+  font-family: $font-stack;
+  -webkit-font-smoothing: antialiased;
 }
