@@ -145,6 +145,22 @@ $black-text: #333333;
     padding: 0.1rem 2rem;
     border-radius: 3px;
     margin: 0 auto;
+
+    .legal-stuff {
+      text-align: left;
+    }
+
+    .profile-info {
+      margin-bottom: 2rem; 
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .attribute-line {
+      font-weight: bold;
+    }
   }
 }
 

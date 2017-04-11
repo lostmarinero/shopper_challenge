@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411042210) do
+ActiveRecord::Schema.define(version: 20170411170317) do
 
   create_table "applicants", force: :cascade do |t|
     t.string   "first_name"
@@ -24,8 +24,9 @@ ActiveRecord::Schema.define(version: 20170411042210) do
     t.boolean  "over_21"
     t.text     "reason"
     t.string   "workflow_state"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.boolean  "background_check_consent", default: false
   end
 
   add_index "applicants", ["created_at"], name: "index_applicants_on_created_at"

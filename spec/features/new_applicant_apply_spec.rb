@@ -21,7 +21,9 @@ feature 'New applicant applies' do
     page.select('San Francisco Bay Area', from: 'Region')
     click_button 'Continue'
 
-    expect(page).to have_content 'Please confirm a background check'
+    expect(page).to have_content(
+      'Only one more thing to do! Background Check Confirmation'
+    )
     expect(Applicant.first.first_name).to eq('Roger')
   end
 
@@ -32,13 +34,15 @@ feature 'New applicant applies' do
     fill_in 'Last name', with: 'Rabbit'
     fill_in 'Email', with: 'rrabbit@example.com'
     fill_in 'Phone', with: '555-555-5555'
-    # fill_in 'Region', with:
+    page.select('iPhone 6/6 Plus', from: 'Phone type')
+    page.select('San Francisco Bay Area', from: 'Region')
     click_button 'Continue'
+    check 'applicant[background_check_consent]'
+    click_button 'Submit'
 
-    check 'Background checkbox'
-    click_button 'Continue'
-
-    expect(page).to have_content 'Congratulations!'
+    expect(page).to have_content(
+      'Congrats! You have completed the initial application.'
+    )
   end
 
   scenario 'with invalid first_name input' do
@@ -63,7 +67,7 @@ feature 'New applicant applies' do
     click_button 'Continue'
 
     help_block = page.find('.applicant_email').find('.help-block')
-    expect(help_block).to have_content (
+    expect(help_block).to have_content(
       'invalid format. please ensure the email address includes an @'
     )
   end

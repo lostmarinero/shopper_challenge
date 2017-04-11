@@ -1,0 +1,9 @@
+#background-check-consent-form
+  .title Background Check Consent
+  .subtitle One last thing! We will need to run a background check, and in order to do so we need your consent.
+  =simple_form_for @applicant,
+    url: applicant_path,
+    method: :put do |f|
+    =f.input :background_check_consent, as: :boolean, checked_value: true, unchecked_value: false, label: 'I agree to Instacart performing a background check.', input_html: { id: 'background-check-consent-checkbox' }
+    =f.button :submit, 'Submit', id: 'background-check-consent-submit', class: 'btn btn-lg btn-block orange-btn'
+    %span.help-block Please check the box above to agree to a background check and submit it.

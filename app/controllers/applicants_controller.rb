@@ -16,7 +16,14 @@ class ApplicantsController < ApplicationController
   end
 
   def update
-    # your code here
+    applicant = current_applicant
+    if applicant.update(applicant_consent_params)
+      flash[:notice] = 'Success!'
+      redirect_to applicant_path(applicant)
+    else
+      flash[:error] = 'There was an error updating your application :/'
+      render 'edit'
+    end
   end
 
   def show
@@ -35,5 +42,9 @@ class ApplicantsController < ApplicationController
       :phone_type,
       :region
     )
+  end
+
+  def applicant_consent_params
+    params.require(:applicant).permit(:background_check_consent)
   end
 end
