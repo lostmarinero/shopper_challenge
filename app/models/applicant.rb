@@ -10,4 +10,21 @@ class Applicant < ActiveRecord::Base
   validates :phone_type, presence: true
   validates :workflow_state, presence: true
   validates :region, presence: true
+
+  def self.count_by_workflow_state(start_date, end_date, workflow_state)
+    self.where(created_at: start_date..(end_date + 1),
+               workflow_state: workflow_state).count
+  end
+
+  def self.get_week_data(start_date, end_date)
+    return_hash = {}
+    [
+      'applied', 'quiz_started', 'quiz_completed', 'onboarding_requested',
+      'onboarding_completed', 'hired', 'rejected'
+    ].each do |workflow_state|
+      return_hash[workflow_state] =
+        self.count_by_workflow_state(start_date, end_date, workflow_state)
+    end
+    return_hash
+  end
 end
