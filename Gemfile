@@ -15,7 +15,7 @@ gem 'sqlite3'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 
-group :development do
+group :development, :test do
   gem 'better_errors'
   gem 'byebug'
   gem 'html2haml'
