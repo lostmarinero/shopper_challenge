@@ -1,7 +1,10 @@
 %li
   = link_to 'Funnel Analytics', funnels_path
-%li 
-  - if logged_in?
+- if logged_in?
+  %li 
     = link_to 'Logout', logout_path
-  - else
-    = link_to 'Login', login_path
+  %li 
+    = link_to 'Profile', applicant_path(current_applicant)
+- else
+  %li 
+    = link_to 'View Application', login_path

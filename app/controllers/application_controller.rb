@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    current_applicant != nil
+    current_applicant != nil && current_applicant.id != nil
   end
 
   def set_current_applicant(applicant)
@@ -31,8 +31,10 @@ class ApplicationController < ActionController::Base
 
   def correct_applicant
     applicant = Applicant.find(params[:id])
-    flash[:error] = 'Unable to find applicant.'
-    redirect_to(root_path) unless applicant == current_applicant
+    unless applicant == current_applicant
+      flash[:error] = 'Unable to find applicant.'
+      redirect_to(root_path)
+    end
   end
 end
 
