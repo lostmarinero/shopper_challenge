@@ -10,7 +10,7 @@ class ApplicantsController < ApplicationController
     new_applicant_params = applicant_params.merge(workflow_state: 'applied')
     @applicant = Applicant.new(new_applicant_params)
     if @applicant.save
-      session[:applicant_email] = @applicant.applicant_email
+      session[:applicant_email] = @applicant.email
       redirect_to @applicant, notice: 'Application successfully created!'
     else
       flash[:error] = @applicant.errors.full_messages

@@ -5,10 +5,9 @@
         - if @applicant.background_check_consent
           .congrats-container
             %h1 Congrats!
-            %p You have completed the initial application.
-            %p Someone from Instacart will be reaching out to you shortly. Now until then, sit back and relax!
+            %p You have completed the initial application.<br/>Someone from Instacart will be reaching out to you shortly.
+            %p Now until then, sit back and relax!
 
-            =link_to 'Edit Profile', edit_applicant_path(@applicant), class: 'btn btn-lg btn-block orange-btn'
             .profile-info
               %h3 Application Details
               %ul.applicant-details-list
@@ -17,10 +16,11 @@
                 %li <span class='attribute-line'>Region:</span> #{@applicant.region}
                 %li <span class='attribute-line'>Background Check Consent:</span> #{@applicant.background_check_consent.to_s.capitalize}
                 %li <span class='attribute-line'>Submitted:</span> #{@applicant.created_at.strftime("%A %B %d, %Y")}
+              =link_to 'Edit Profile', edit_applicant_path(@applicant), class: 'btn btn-lg btn-block orange-btn'
+
         - else
           .consent-container
             %h1.title Thank you for your interest in joining our team!
-            =link_to 'Edit Profile', edit_applicant_path(@applicant), class: 'btn btn-lg btn-block orange-btn'
             %p.subtitle Only one more thing to do!
             .legal-stuff
               .background-explain-title Background Check Confirmation
