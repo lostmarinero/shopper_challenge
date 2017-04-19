@@ -1,6 +1,6 @@
 class ApplicantsController < ApplicationController
-  skip_before_action :require_current_applicant, only: [:new, :create], raise: false
-  skip_before_action :correct_applicant, only: [:new, :create], raise: false
+  before_action :require_current_applicant, :correct_applicant,
+                only: [:update, :show, :edit], raise: false
 
   def new
     @applicant = Applicant.new
@@ -10,7 +10,7 @@ class ApplicantsController < ApplicationController
     new_applicant_params = applicant_params.merge(workflow_state: 'applied')
     @applicant = Applicant.new(new_applicant_params)
     if @applicant.save
-      session[:applicant_email] = @applicant.email
+      session[:applicant_email] = @applicant.applicant_email
       redirect_to @applicant, notice: 'Application successfully created!'
     else
       flash[:error] = @applicant.errors.full_messages
@@ -47,6 +47,26 @@ class ApplicantsController < ApplicationController
     @applicant = Applicant.find(params[:id])
   end
 
+  def login
+    @applicant = Applicant.new
+  end
+
+  def create_session
+    @applicant = Applicant.find_by(email: applicant_email_params[:email])
+    if @applicant
+      set_current_applicant(@applicant)
+      redirect_to applicant_path(@applicant)
+    else
+      flash[:error] = 'Unable to find applicant with that email'
+      redirect_to root_path
+    end
+  end
+
+  def end_session
+    remove_current_applicant
+    redirect_to root_path
+  end
+
   private
 
   def applicant_params
@@ -59,6 +79,11 @@ class ApplicantsController < ApplicationController
       :phone_type,
       :region
     )
+  end
+
+  def applicant_email_params
+    # strong params to ensure we whitelist inputs fields allowed
+    params.require(:applicant).permit(:email)
   end
 
   def applicant_consent_params

@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_applicant, :logged_in?
-  before_action :require_current_applicant, :correct_applicant
+  helper_method :current_applicant, :logged_in?,
+                :set_current_applicant, :remove_current_applicant
 
   def current_applicant
     @applicant ||= Applicant.find_by(email: session[:applicant_email])
@@ -14,15 +14,24 @@ class ApplicationController < ActionController::Base
     current_applicant != nil
   end
 
+  def set_current_applicant(applicant)
+    session[:applicant_email] = applicant.email
+  end
+
+  def remove_current_applicant
+    session[:applicant_email] = nil
+  end
+
   def require_current_applicant
     unless current_applicant
       flash[:error] = 'Unable to find applicant.'
-      redirect_to new_applicant_path
+      redirect_to root_path
     end
   end
 
   def correct_applicant
     applicant = Applicant.find(params[:id])
-    redirect_to(new_applicant_path) unless applicant == current_applicant
+    flash[:error] = 'Unable to find applicant.'
+    redirect_to(root_path) unless applicant == current_applicant
   end
 end
