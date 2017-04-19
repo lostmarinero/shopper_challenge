@@ -35,3 +35,5 @@ class ApplicationController < ActionController::Base
     redirect_to(root_path) unless applicant == current_applicant
   end
 end
+
+# break
