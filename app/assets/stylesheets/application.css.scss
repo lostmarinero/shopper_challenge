@@ -1,5 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "framework_and_overrides";
+@import "base";
+@import "welcome";
 @import "applicants";
 @import "funnels";

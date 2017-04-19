@@ -1,0 +1,11 @@
+.role-description-container.container
+  - car_required_class = role[:car_required] ? 'yes-car' : 'no-car'
+  .role-header{class: car_required_class}= role[:car_required] ? 'Car Needed' : 'No Car Needed'
+  .role-content
+    .role-title{class: car_required_class}= role[:title]
+    .role-designation= role[:designation]
+    .role-description= role[:description]
+    %hr
+    %ul.role-list
+      - role[:responsibilities].each do |resp|
+        %li= resp

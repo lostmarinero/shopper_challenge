@@ -2,9 +2,9 @@
   = link_to 'Funnel Analytics', funnels_path
 - if logged_in?
   %li 
-    = link_to 'Logout', logout_path
-  %li 
     = link_to 'Profile', applicant_path(current_applicant)
+  %li 
+    = link_to 'Logout', logout_path
 - else
   %li 
-    = link_to 'View Application', login_path
+    = link_to 'Login', login_path

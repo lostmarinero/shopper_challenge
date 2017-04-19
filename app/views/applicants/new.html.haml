@@ -1,3 +1,24 @@
-.section.shopper-application.only-section
+.section.shopper-application
   .row-container.col-xs-12.col-md-12.bg-green
-    .col-xs-12.col-md-6= render 'applicant_form'
+    .col-xs-12.col-md-5.col-md-push-6= render 'applicant_form'
+    .col-xs-12.col-md-6.col-md-pull-5
+      =image_tag "instacart-small.png"
+    .col-xs-12.col-md-6.col-md-pull-5
+      .why-join
+        %h2 Come Join Our Team!
+        %p Earn money shopping and delivering groceries. Be a part of something great.
+        = render 'why_join_items'
+        =button_tag 'Learn More & Open Positions', {id: 'learn-more', class: 'btn btn-lg btn-block orange-btn'}
+.section.shopper-positions
+  .positions-title.col-xs-12.col-md-12
+    %h1.title#positions-top Positions at Instacart
+    %h4.sub-title There's a role for you at Instacart.<br/>Find it now!
+  .positions-list.col-xs-12.col-md-12
+    - role_descriptions_array.each.with_index do |role, idx|
+      = render 'role_description', role: role
+.section.shopper-apply-now-section
+  .row-container.col-xs-12.col-md-12
+    .apply-now
+      .title Apply in under 5 minutes!
+      .sub-title Attend an in-person session and start work within one week!
+    =button_tag 'Apply Now!', {id: 'apply-now', class: 'btn btn-lg btn-block apply-now-btn orange-btn'}

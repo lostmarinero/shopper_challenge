@@ -1,0 +1,111 @@
+/*****************
+  1. Color Styling
+******************/
+
+$instacart-green: #43b02a;
+$instacart-green-hover: #338720;
+$instacart-orange: #ff8200;
+$instacart-orange-hover: #f07a00;
+$other-instacart-green: #47ad34;
+
+$text-dark-grey: #4a4a4a;
+$text-light-grey: #939291;
+$bright-white: #fff;
+$off-white: #fbfaf9;
+$card-background: #f5f5f5;
+$black-text: #333333;
+
+
+/*****************
+ 2. Button Styling
+******************/
+@mixin button-white-text-color {
+  color: $bright-white;
+
+  &:hover {
+    color: $bright-white !important;
+  }
+}
+
+.green-btn{
+  background-color: $instacart-green;
+  @include button-white-text-color;
+
+  &:hover {
+    background-color: $instacart-green-hover;
+  }
+
+  &[disabled] {
+    background-color: $instacart-green;
+    opacity: 0.5;
+  }
+}
+
+.orange-btn {
+  background-color: $instacart-orange;
+  @include button-white-text-color;
+
+  &:hover {
+    background-color: $instacart-orange-hover;
+  }
+
+  &[disabled] {
+    background-color: $instacart-orange;
+    opacity: 0.5;
+  }
+}
+
+
+/*****************
+ 3. Row/Section Defaults
+******************/
+
+.row-container {
+  background-size: cover;
+  height: 100%;
+
+  .content-container {
+    text-align: center;
+  }
+}
+
+.bg-green {
+  background-color: $other-instacart-green;
+  color: $bright-white;
+}
+
+.bg-orange {
+  background-color: $instacart-orange;
+  color: $bright-white;
+}
+
+.only-section {
+  height: 100%;
+}
+
+
+/*****************
+ 4. Form Styling
+******************/
+.form-container {
+  background-color: $bright-white;
+  background-size: cover;
+  border-radius: 3px;
+  color: $black-text;
+  margin-top: 2rem;
+  padding: 1.5rem 3rem;
+  width: 100%;
+
+  form {
+    text-align: left;
+  }
+
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+}
+
+.help-block {
+  text-transform: capitalize;
+}

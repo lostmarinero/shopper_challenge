@@ -1,3 +1,21 @@
-// Place all the styles related to the welcome controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*****************
+ 1. Welcome View Styling
+******************/
+
+.welcome-container {
+  height: 100%;
+  color: $bright-white;
+
+  .row-container {
+    .content-container {
+      .buttons {
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      p {
+        font-size: 2rem;
+      }
+    }
+  }
+}

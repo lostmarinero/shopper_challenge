@@ -1,0 +1,8 @@
+.why-join-list
+  - why_join_reasons.each do |item|
+    .why-join-item
+      .why-join-icon
+        %span{"class": item[:icon], "aria-hidden": "true"}
+      .why-join-content
+        .title= item[:title]
+        .content= item[:content]

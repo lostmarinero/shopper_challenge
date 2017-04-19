@@ -1,146 +1,5 @@
-/*************
- Key
-**************/
-/* 
-1. Color Styling
-2. Button Styling
-*/
-
 /*****************
-  1. Color Styling
-******************/
-
-$instacart-green: #43b02a;
-$instacart-green-hover: #338720;
-$instacart-orange: #ff8200;
-$instacart-orange-hover: #f07a00;
-$other-instacart-green: #47ad34;
-
-$text-dark-grey: #4a4a4a;
-$text-light-grey: #939291;
-$bright-white: #fff;
-$off-white: #fbfaf9;
-$card-background: #f5f5f5;
-$black-text: #333333;
-
-/*****************
- 2. Button Styling
-******************/
-@mixin button-white-text-color {
-  color: $bright-white;
-
-  &:hover {
-    color: $bright-white !important;
-  }
-}
-
-.green-btn{
-  background-color: $instacart-green;
-  @include button-white-text-color;
-
-  &:hover {
-    background-color: $instacart-green-hover;
-  }
-
-  &[disabled] {
-    background-color: $instacart-green;
-    opacity: 0.5;
-  }
-}
-
-.orange-btn {
-  background-color: $instacart-orange;
-  @include button-white-text-color;
-
-  &:hover {
-    background-color: $instacart-orange-hover;
-  }
-
-  &[disabled] {
-    background-color: $instacart-orange;
-    opacity: 0.5;
-  }
-}
-
-/*****************
- 3. Row/Section Defaults
-******************/
-
-.row-container {
-  background-size: cover;
-  height: 100%;
-
-  .content-container {
-    text-align: center;
-  }
-}
-
-.bg-green {
-  background-color: $other-instacart-green;
-  color: $bright-white;
-}
-
-.bg-orange {
-  background-color: $instacart-orange;
-  color: $bright-white;
-}
-
-.only-section {
-  height: 100%;
-}
-
-/*****************
- 4. Form Styling
-******************/
-.form-container {
-  background-color: $bright-white;
-  background-size: cover;
-  border-radius: 3px;
-  color: $black-text;
-  margin-top: 2rem;
-  padding: 1.5rem 3rem;
-  width: 100%;
-
-  form {
-    text-align: left;
-  }
-
-  .title {
-    font-size: 3rem;
-    font-weight: bold;
-  }
-}
-
-.help-block {
-  text-transform: capitalize;
-}
-
-
-/*****************
- 5. Welcome View Styling
-******************/
-
-.welcome-container {
-  height: 100%;
-  color: $bright-white;
-
-  .row-container {
-    .content-container {
-      .buttons {
-        width: 80%;
-        margin: 0 auto;
-      }
-
-      p {
-        font-size: 2rem;
-      }
-    }
-  }
-}
-
-
-/*****************
- 5. Applicant Views Styling
+ 1. Applicant Show Styling
 ******************/
 
 .applicant-show {
@@ -158,10 +17,12 @@ $black-text: #333333;
     }
 
     .profile-info {
-      margin-bottom: 2rem; 
+      margin-bottom: 2rem;
 
-      p {
-        margin: 0;
+      .applicant-details-list {
+        list-style-type: none;
+        margin: 0 auto;
+        text-align: left;
       }
     }
 
@@ -171,4 +32,186 @@ $black-text: #333333;
   }
 }
 
-// break
+/*****************
+ 2. Applicant New Styling
+******************/
+
+.shopper-application {
+  .row-container {
+    padding: 0 0 2rem 0;
+  }
+}
+
+.why-join {
+  color: $bright-white;
+
+  .why-join-list {
+    margin: 2rem auto;
+    margin-left: 2rem;
+
+    .why-join-item {
+      margin: 1rem auto;
+
+      .why-join-icon {
+        display: inline-block;
+        
+        .glyphicon {
+          font-size: 3.5rem;
+        }
+      }
+      .why-join-content {
+        display: inline-block;
+        max-width: 80%;
+        margin-left: 2rem;
+
+        .title {
+          font-size: 2rem;
+        }
+        .content {
+          color: $off-white
+        }
+      }
+    }
+  }
+}
+
+.shopper-positions {
+  background-color: $off-white;
+
+  .positions-title {
+    text-align: center;
+    
+    .sub-title {
+      color: $text-light-grey;
+    }
+  }
+  .positions-list {
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
+.role-description-container {
+  margin: 1rem !important;
+  background-size: cover;
+  flex: 1;
+  align-self: stretch;
+  
+  .role-header{
+    border-radius: 3px 3px 0 0;
+    text-align: right;
+    padding: 1rem;
+    color: $bright-white;
+
+    &.yes-car {
+      background: $instacart-green;
+    }
+
+    &.no-car {
+      background: $instacart-orange;
+    }  
+  }
+
+  .role-content {
+    background-color: $card-background;
+    border-radius: 0 0 3px 3px;
+    padding: 2rem !important;
+
+    hr {
+      margin: 1rem 0;
+    }
+
+    .role-title {
+      font-size: 2.5rem;
+
+      &.yes-car {
+        color: $instacart-green;
+      }
+      &.no-car {
+        color: $instacart-orange;
+      }
+    }
+    
+    .role-designation, .role-description {
+      color: $text-light-grey
+    }
+    
+    .role-designation {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  }
+}
+
+.shopper-apply-now-section {
+  .row-container {
+    margin-top: 2rem;
+    padding: 2rem;
+    text-align: center;
+    background-color: $card-background;
+  }
+
+  .apply-now {
+    text-align: center;
+    color: $text-dark-grey;
+
+    .title {
+      font-size: 2rem;
+    }
+    .sub-title {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+
+/*****************
+ 3. Desktop Styling
+******************/
+
+@media (min-width:  992px) {
+  .applicant-show {
+    .show-content {
+      margin: 2rem auto;
+    }
+  }
+  
+  .apply-now {
+    margin-bottom: 1.5rem;
+  }
+  
+  .apply-now-btn {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .why-join {
+    margin-top: 2rem;
+    margin-left: 4rem;
+  }
+
+  .shopper-positions {
+    .positions-title {
+      margin: 3rem auto; 
+    }
+    .positions-list {
+      flex-direction: row;
+    }
+  }
+
+  .shopper-apply-now-section {
+    .apply-now {
+      .title {
+        font-size: 3rem;
+      }
+      .sub-title {
+        font-size: 2rem;
+      } 
+    }
+  }
+}
