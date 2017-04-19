@@ -17,7 +17,17 @@ class ApplicantsController < ApplicationController
 
   def update
     applicant = current_applicant
-    if applicant.update(applicant_consent_params)
+
+    # If update is from the consent form, get the consent params
+    # otherwise update the other params
+    update_params = if params[:applicant].keys
+                                         .include?('background_check_consent')
+                      applicant_consent_params
+                    else
+                      applicant_params
+                    end
+
+    if applicant.update(update_params)
       flash[:notice] = 'Success!'
       redirect_to applicant_path(applicant)
     else
@@ -27,6 +37,10 @@ class ApplicantsController < ApplicationController
   end
 
   def show
+    @applicant = Applicant.find(params[:id])
+  end
+
+  def edit
     @applicant = Applicant.find(params[:id])
   end
 

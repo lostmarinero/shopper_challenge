@@ -1,4 +1,4 @@
-.section.applicant-show
+.section.applicant-show.only-section
   .row-container.bg-green.col-xs-12.col-md-12
     .content-container.col-xs-12.col-md-5.col-md-offset-3
       .show-content
@@ -8,6 +8,7 @@
             %p You have completed the initial application.
             %p Someone from Instacart will be reaching out to you shortly. Now until then, sit back and relax!
 
+            =link_to 'Edit Profile', edit_applicant_path(@applicant), class: 'btn btn-lg btn-block orange-btn'
             .profile-info
               %h3 Application Details
               %p <span class='attribute-line'>Applicant:</span> #{@applicant.first_name} #{@applicant.last_name}
@@ -18,6 +19,7 @@
         - else
           .consent-container
             %h1.title Thank you for your interest in joining our team!
+            =link_to 'Edit Profile', edit_applicant_path(@applicant), class: 'btn btn-lg btn-block orange-btn'
             %p.subtitle Only one more thing to do!
             .legal-stuff
               .background-explain-title Background Check Confirmation

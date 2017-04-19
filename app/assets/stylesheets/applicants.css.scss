@@ -63,7 +63,7 @@ $black-text: #333333;
 }
 
 /*****************
- 3. Row Container Defaults
+ 3. Row/Section Defaults
 ******************/
 
 .row-container {
@@ -85,6 +85,9 @@ $black-text: #333333;
   color: $bright-white;
 }
 
+.only-section {
+  height: 100%;
+}
 
 /*****************
  4. Form Styling
@@ -97,6 +100,10 @@ $black-text: #333333;
   margin-top: 2rem;
   padding: 1.5rem 3rem;
   width: 100%;
+
+  form {
+    text-align: left;
+  }
 
   .title {
     font-size: 3rem;
