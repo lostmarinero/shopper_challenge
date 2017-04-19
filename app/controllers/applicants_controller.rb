@@ -1,4 +1,7 @@
 class ApplicantsController < ApplicationController
+  skip_before_action :require_current_applicant, only: [:new, :create], raise: false
+  skip_before_action :correct_applicant, only: [:new, :create], raise: false
+
   def new
     @applicant = Applicant.new
   end

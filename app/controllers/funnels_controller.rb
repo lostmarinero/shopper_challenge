@@ -1,4 +1,6 @@
 class FunnelsController < ApplicationController
+  skip_before_action :require_current_applicant, :correct_applicant
+
   def index
     @funnel = {} # your code goes here
 
