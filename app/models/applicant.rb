@@ -8,14 +8,15 @@ class Applicant < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true,
                     format: {
                       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/,
-                      message: 'invalid format. please ensure the email' \
-                               ' address includes an @'
+                      message: 'invalid format. please ensure the ' \
+                               'email address includes an @'
                     }
   validates :phone, presence: true, uniqueness: true,
                     format: {
-                      with: /\d{3}-\d{3}-\d{4}/,
-                      message: 'invalid format. please ensure the telephone' \
-                               ' number is formated as 555-555-5555'
+                      with:
+                        /\(?\d{3}(\-|\.|\))\s?\d{3}(\-|\.)?\d{4}(\sx\d{4})?/,
+                      message: 'invalid format. please ensure the ' \
+                               'telephone number is formated as 555-555-5555'
                     }
   validates :phone_type, presence: true
   validates :workflow_state, presence: true

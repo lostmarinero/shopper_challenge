@@ -5,13 +5,21 @@ require 'spec_helper'
 describe 'Applicant', type: :model do
   before(:all) do
     Rails.application.load_seed
-    Applicant.all[0..97].each do |applicant|
+    Applicant.all[0..55].each do |applicant|
       # Thursday, October 1, 2015
       applicant.update(created_at: Date.parse('2015-10-01'))
     end
-    Applicant.all[98..199].each do |applicant|
+    Applicant.all[56..97].each do |applicant|
+      # Tuesday, October 6, 2015
+      applicant.update(created_at: Date.parse('2015-10-06'))
+    end
+    Applicant.all[98..149].each do |applicant|
       # Wednesday, October 7, 2015
       applicant.update(created_at: Date.parse('2015-10-07'))
+    end
+    Applicant.all[150..199].each do |applicant|
+      # Thursday, October 8, 2015
+      applicant.update(created_at: Date.parse('2015-10-08'))
     end
     Applicant.all[200..249].each do |applicant|
       # Monday, October 12, 2015
@@ -27,7 +35,9 @@ describe 'Applicant', type: :model do
   end
 
   let(:thu_october_1)  { Date.parse('2015-10-01') }
+  let(:tue_october_6)  { Date.parse('2015-10-06') }
   let(:wed_october_7)  { Date.parse('2015-10-07') }
+  let(:thu_october_8)  { Date.parse('2015-10-08') }
   let(:mon_october_12) { Date.parse('2015-10-12') }
   let(:fri_october_16) { Date.parse('2015-10-16') }
 
@@ -57,36 +67,36 @@ describe 'Applicant', type: :model do
     it 'responds to a workflow_state of applied' do
       expect(Applicant.count_by_workflow_state(thu_october_1,
                                                wed_october_7,
-                                               'applied')).to eq(56)
+                                               'applied')).to eq(40)
     end
     it 'responds to a workflow_state of quiz_started' do
       expect(Applicant.count_by_workflow_state(thu_october_1,
                                                wed_october_7,
-                                               'quiz_started')).to eq(59)
+                                               'quiz_started')).to eq(45)
     end
     it 'responds to a workflow_state of quiz_completed' do
       expect(Applicant.count_by_workflow_state(thu_october_1,
                                                wed_october_7,
-                                               'quiz_completed')).to eq(38)
+                                               'quiz_completed')).to eq(32)
     end
     it 'responds to a workflow_state of onboarding_requested' do
       expect(
         Applicant.count_by_workflow_state(thu_october_1,
                                           wed_october_7,
                                           'onboarding_requested')
-      ).to eq(27)
+      ).to eq(19)
     end
     it 'responds to a workflow_state of onboarding_completed' do
       expect(
         Applicant.count_by_workflow_state(thu_october_1,
                                           wed_october_7,
                                           'onboarding_completed')
-      ).to eq(11)
+      ).to eq(7)
     end
     it 'responds to a workflow_state of hired' do
       expect(Applicant.count_by_workflow_state(thu_october_1,
                                                wed_october_7,
-                                               'hired')).to eq(9)
+                                               'hired')).to eq(7)
     end
     it 'responds to a workflow_state of rejected' do
       expect(Applicant.count_by_workflow_state(thu_october_1,
@@ -95,17 +105,35 @@ describe 'Applicant', type: :model do
     end
 
     context 'with edge cases' do
+      let(:oct_1_applied) do
+        Applicant.where(created_at: thu_october_1,
+                        workflow_state: 'applied').count
+      end
+      let(:oct_6_applied) do
+        Applicant.where(created_at: tue_october_6,
+                        workflow_state: 'applied').count
+      end
+      let(:oct_7_applied) do
+        Applicant.where(created_at: wed_october_7,
+                        workflow_state: 'applied').count
+      end
+      let(:oct_8_applied) do
+        Applicant.where(created_at: thu_october_8,
+                        workflow_state: 'applied').count
+      end
+
       it 'returns the number zero if there are no applicants in the range' do
         expect(
           Applicant.count_by_workflow_state(10.days.ago, 1.day.ago, 'applied')
         ).to eq(0)
       end
       it 'includes applicants that applied on the end date' do
+        total_applied = oct_1_applied + oct_6_applied + oct_7_applied
         expect(
           Applicant.count_by_workflow_state(thu_october_1,
                                             wed_october_7,
                                             'applied')
-        ).to eq(56)
+        ).to eq(40)
       end
       it 'includes applicants that applied on the start date' do
         expect(
@@ -130,12 +158,12 @@ describe 'Applicant', type: :model do
     end
     it 'returns all of the workflow_state attributes with the count' do
       expect(Applicant.get_week_data(thu_october_1, wed_october_7))
-        .to eq('applied' => 56,
-               'quiz_started' => 59,
-               'quiz_completed' => 38,
-               'onboarding_requested' => 27,
-               'onboarding_completed' => 11,
-               'hired' => 9,
+        .to eq('applied' => 40,
+               'hired' => 7,
+               'onboarding_completed' => 7,
+               'onboarding_requested' => 19,
+               'quiz_completed' => 32,
+               'quiz_started' => 45,
                'rejected' => 0)
     end
   end
