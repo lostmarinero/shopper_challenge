@@ -8,7 +8,6 @@ class FunnelsController < ApplicationController
     unless ind_funnel_params.key? :end_date
       ind_funnel_params[:end_date] = Date.today.to_date.to_s
     end
-
     applicant_funnel = ApplicantFunnel.new(ind_funnel_params)
     unless applicant_funnel.valid?
       respond_to do |format|
@@ -26,7 +25,10 @@ class FunnelsController < ApplicationController
     @funnel = applicant_funnel.data_counts_by_week
 
     respond_to do |format|
-      format.html { @chart_funnel = formatted_funnel }
+      format.html do
+        @chart_funnel = formatted_funnel
+        @start_end_params = ind_funnel_params
+      end
       format.json { render json: @funnel }
     end
   end
