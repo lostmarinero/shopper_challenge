@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    current_applicant != nil && current_applicant.id != nil
+    !current_applicant.nil? && !current_applicant.id.nil?
   end
 
   def set_current_applicant(applicant)
