@@ -14,6 +14,9 @@ img {
 
 .navbar-brand {
   //font-size: inherit;
+  > img {
+    height: 120%;
+  }
 }
 
 main {
