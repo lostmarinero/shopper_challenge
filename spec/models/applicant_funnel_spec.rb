@@ -36,27 +36,36 @@ describe 'ApplicantFunnel', type: :model do
     input_date.beginning_of_week(:monday)
   end
 
+  describe 'defaults' do
+    it 'defaults the start_date to 4 weeks before the end date' do
+      af = ApplicantFunnel.new(end_date: '2014-12-01')
+      expect(af.valid?).to be(true)
+      expect(af.start_date).to eq(Date.parse('2014-12-01') - 4.weeks)
+    end
+    it 'defaults the end_date to 4 weeks after the start date' do
+      af = ApplicantFunnel.new(start_date: '2014-12-01')
+      expect(af.valid?).to be(true)
+      expect(af.end_date).to eq(Date.parse('2014-12-01') + 4.weeks)
+    end
+    it 'defaults no start_start date to 4 weeks ago, end_date to today' do
+      af = ApplicantFunnel.new({})
+      expect(af.valid?).to be(true)
+      expect(af.start_date).to eq(Date.today - 4.weeks)
+      expect(af.end_date).to eq(Date.today)
+    end
+    it 'sets a default start_date if string start_date is an empty string' do
+      af = ApplicantFunnel.new(end_date: '2014-12-01', start_date: '')
+      expect(af.valid?).to be(true)
+      expect(af.start_date).to eq(Date.parse('2014-12-01') - 4.weeks)
+    end
+    it 'sets a default end_date if string end_date is an empty string' do
+      af = ApplicantFunnel.new(start_date: '2014-12-01', end_date: '')
+      expect(af.valid?).to be(true)
+      expect(af.end_date).to eq(Date.parse('2014-12-01') + 4.weeks)
+    end
+  end
+
   describe '#valid?' do
-    it 'requires a start_date_string' do
-      expect(
-        ApplicantFunnel.new(end_date: '2014-12-01').valid?
-      ).to be(false)
-    end
-    it 'requires an end_date_string' do
-      expect(
-        ApplicantFunnel.new(start_date: '2014-12-01').valid?
-      ).to be(false)
-    end
-    it 'does not error if the string start date parsing fails' do
-      expect(
-        ApplicantFunnel.new(end_date: '2014-12-01', start_date: '').valid?
-      ).to be(false)
-    end
-    it 'does not error if the string end date parsing fails' do
-      expect(
-        ApplicantFunnel.new(start_date: '2014-12-01', end_date: '').valid?
-      ).to be(false)
-    end
     it 'requires the start date to be before or equal to the end date' do
       expect(
         ApplicantFunnel.new(start_date: '2014-12-01',

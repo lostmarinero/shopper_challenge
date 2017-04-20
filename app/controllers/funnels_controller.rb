@@ -1,13 +1,5 @@
 class FunnelsController < ApplicationController
   def index
-    # default parameters
-    ind_funnel_params = funnel_params
-    unless ind_funnel_params.key? :start_date
-      ind_funnel_params[:start_date] = 4.weeks.ago.to_date.to_s
-    end
-    unless ind_funnel_params.key? :end_date
-      ind_funnel_params[:end_date] = Date.today.to_date.to_s
-    end
     applicant_funnel = ApplicantFunnel.new(ind_funnel_params)
     unless applicant_funnel.valid?
       respond_to do |format|
