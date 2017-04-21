@@ -5,9 +5,13 @@
   .row
     .inline-header
       %h1 Funnel Chart
-      %h6 Start Date: #{@start_end_params[:start_date]}
-      %h6 End Date: #{@start_end_params[:end_date]}
-      / break
+      =simple_form_for :applicant_funnel, url: funnels_path,
+                        method: 'get', wrapper: :inline_form, 
+                        html: {class: 'form-inline', id: 'funnel-form'} do |f|
+        =f.input :start_date, as: :date
+        =f.input :end_date, as: :date
+        =f.button :submit, 'Update Graph', id: 'funnel-submit', class: 'btn btn-md btn-block orange-btn'
+
   .row
     #funnel-chart
       %svg

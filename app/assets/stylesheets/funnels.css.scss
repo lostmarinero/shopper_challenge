@@ -1,4 +1,36 @@
+/*****************
+ 1. Styling
+******************/
+
 #funnel-chart {
   height: 450px;
   width: 100%;
+}
+
+#funnel-submit, .applicant_funnel_start_date, .applicant_funnel_end_date {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+/*****************
+ 2. Desktop Styling
+******************/
+
+@media (min-width:  992px) {
+  #funnel-submit {
+    margin-left: 0;
+    margin-right: 0;
+    display: inline-block;
+    width: 15rem;
+    vertical-align: bottom;
+  }
+
+  #funnel-form {
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  .applicant_funnel_start_date, .applicant_funnel_end_date {
+    margin-left: 0;
+  }
 }
