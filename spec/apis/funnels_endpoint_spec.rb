@@ -53,14 +53,15 @@ describe 'Funnels API', type: :request do
       expect(json['2015-10-01-2015-10-01']['applied']).to eq(26)
     end
 
-    it 'defaults a missing start_date to 4 weeks ago' do
-      Applicant.last.update(created_at: 4.weeks.ago)
+    it 'defaults a missing start_date to 4 weeks before end date' do
+      Applicant.last.update(created_at: 4.weeks.ago.to_date - 1)
 
       get '/funnels.json', end_date: Date.yesterday.to_s
 
-      end_of_first_week_date = 4.weeks.ago.end_of_week(:monday)
+      end_of_first_week_date = (4.weeks.ago.to_date - 1).end_of_week(:monday)
       date_key = (
-        4.weeks.ago.to_date.to_s + '-' + end_of_first_week_date.to_date.to_s
+        (4.weeks.ago.to_date - 1).to_date.to_s +
+        '-' + end_of_first_week_date.to_date.to_s
       )
 
       json = JSON.parse(response.body)
@@ -68,7 +69,23 @@ describe 'Funnels API', type: :request do
       expect(response.status).to eq(200)
       expect(json[date_key]['applied']).to eq(1)
     end
-    it 'defaults a missing end_date to today' do
+    it 'defaults missing end_date to 4 weeks after start_date' do
+      Applicant.last.update(created_at: 12.days.ago)
+
+      get '/funnels.json', start_date: 40.days.ago.to_date.to_s
+
+      beginning_of_final_week_date =
+        12.days.ago.beginning_of_week(:monday).to_date
+      date_key = (
+        beginning_of_final_week_date.to_s + '-' + 12.days.ago.to_date.to_s
+      )
+
+      json = JSON.parse(response.body)
+
+      expect(response.status).to eq(200)
+      expect(json[date_key]['applied']).to eq(1)
+    end
+    it 'defaults missing end_date to today if start_date less than 4 weeks' do
       Applicant.last.update(created_at: Date.today)
 
       get '/funnels.json', start_date: 20.days.ago.to_date.to_s

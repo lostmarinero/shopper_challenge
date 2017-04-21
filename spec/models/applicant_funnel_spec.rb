@@ -175,6 +175,7 @@ describe 'ApplicantFunnel', type: :model do
                                        end_date: tue_oct_13.to_s)
       key1 = "#{wed_october_7}-#{sun_oct_9}"
       key2 = "#{sun_oct_9 + 1}-#{tue_oct_13}"
+
       expect(app_funnel.data_counts_by_week[key1]['applied'])
         .to eq(30)
       expect(app_funnel.data_counts_by_week[key2]['applied'])
