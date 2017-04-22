@@ -1,4 +1,6 @@
 class Applicant < ActiveRecord::Base
+  before_validation :format_phone
+
   PHONE_TYPES = ['iPhone 6/6 Plus', 'iPhone 6s/6s Plus', 'iPhone 5/5S', 'iPhone 4/4S', 'iPhone 3G/3GS', 'Android 4.0+ (less than 2 years old)', 'Android 2.2/2.3 (over 2 years old)', 'Windows Phone', 'Blackberry', 'Other']
   REGIONS = ['San Francisco Bay Area', 'Chicago', 'Boston', 'NYC', 'Toronto', 'Berlin', 'Delhi']
   WORKFLOW_STATES = ['applied', 'quiz_started', 'quiz_completed', 'onboarding_requested', 'onboarding_completed', 'hired', 'rejected']
@@ -14,13 +16,24 @@ class Applicant < ActiveRecord::Base
   validates :phone, presence: true, uniqueness: true,
                     format: {
                       with:
-                        /\(?\d{3}(\-|\.|\))\s?\d{3}(\-|\.)?\d{4}(\sx\d{4})?/,
+                        /\A\d?\-?\(?\d{3}(\-|\.|\))\s?\d{3}(\-|\.)?\d{4}(\s?x\d{3,4})?\z/,
                       message: 'invalid format. please ensure the ' \
                                'telephone number is formated as 555-555-5555'
                     }
   validates :phone_type, presence: true
   validates :workflow_state, presence: true
   validates :region, presence: true
+
+  def format_phone
+    phone = self.phone.gsub(/[^\d]/, '')
+    self.phone = if phone.length > 6 && phone.length <= 10
+                   phone.insert(3, '-').insert(7, '-')
+                 elsif phone.length >= 11
+                   phone.insert(1, '-').insert(5, '-').insert(9, '-')
+                  else
+                   phone
+                 end
+  end
 
   def self.workflow_states_by_week(start_date, end_date)
     response = workflow_state_counts_by_dates(start_date, end_date)

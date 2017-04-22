@@ -13,6 +13,7 @@
               %ul.applicant-details-list
                 %li <span class='attribute-line'>Applicant:</span> #{@applicant.first_name} #{@applicant.last_name}
                 %li <span class='attribute-line'>Email:</span> #{@applicant.email}
+                %li <span class='attribute-line'>Phone:</span> #{@applicant.phone}
                 %li <span class='attribute-line'>Region:</span> #{@applicant.region}
                 %li <span class='attribute-line'>Background Check Consent:</span> #{@applicant.background_check_consent.to_s.capitalize}
                 %li <span class='attribute-line'>Submitted:</span> #{@applicant.created_at.strftime("%A %B %d, %Y")}
