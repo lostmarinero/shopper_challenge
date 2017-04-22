@@ -7,7 +7,8 @@ class ApplicationController < ActionController::Base
                 :set_current_applicant, :remove_current_applicant
 
   def current_applicant
-    @applicant ||= Applicant.find_by(email: session[:applicant_email])
+    return unless session[:applicant_email]
+    @current_applicant ||= Applicant.find_by(email: session[:applicant_email])
   end
 
   def logged_in?

@@ -10,7 +10,7 @@ class ApplicantsController < ApplicationController
     new_applicant_params = applicant_params.merge(workflow_state: 'applied')
     @applicant = Applicant.new(new_applicant_params)
     if @applicant.save
-      session[:applicant_email] = @applicant.email
+      set_current_applicant(@applicant)
       redirect_to @applicant, notice: 'Application successfully created!'
     else
       flash[:error] = @applicant.errors.full_messages
@@ -19,7 +19,7 @@ class ApplicantsController < ApplicationController
   end
 
   def update
-    applicant = current_applicant
+    @applicant = current_applicant
 
     # If update is from the consent form, get the consent params
     # otherwise update the other params
@@ -30,9 +30,10 @@ class ApplicantsController < ApplicationController
                       applicant_params
                     end
 
-    if applicant.update(update_params)
+    if @applicant.update(update_params)
+      set_current_applicant(@applicant)
       flash[:notice] = 'Success!'
-      redirect_to applicant_path(applicant)
+      redirect_to applicant_path(@applicant)
     else
       flash[:error] = 'There was an error updating your application :/'
       render 'edit'
@@ -48,6 +49,9 @@ class ApplicantsController < ApplicationController
   end
 
   def login
+    if logged_in?
+      redirect_to applicant_path(current_applicant)
+    end
     @applicant = Applicant.new
   end
 
