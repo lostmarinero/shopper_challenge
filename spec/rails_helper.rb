@@ -12,9 +12,6 @@ require 'capybara/rails'
 # Checks for pending migration and applies them before tests are run.
 ActiveRecord::Migration.maintain_test_schema!
 
-# Need to set the javascript driver to webkit for frontend headless testing
-Capybara.javascript_driver = :webkit
-
 # To be able to load configs from 'spec/support/'
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
