@@ -22,7 +22,7 @@ feature 'New applicant applies' do
     click_button 'Continue'
 
     expect(page).to have_content(
-      'Only one more thing to do! Background Check Confirmation'
+      'One last thing! Background Check Consent'
     )
     expect(Applicant.first.first_name).to eq('Roger')
   end

@@ -85,15 +85,15 @@ class Applicant < ActiveRecord::Base
     sql_response.each.with_index do |week_data, index|
       week_hash = {}
       key_start_date = if index.zero? &&
-                          Date.parse(week_data['monday_date']) < start_date &&
-                          start_date < Date.parse(week_data['sunday_date'])
+                          Date.parse(week_data['monday_date']) <= start_date &&
+                          start_date <= Date.parse(week_data['sunday_date'])
                          start_date_string
                        else
                          week_data['monday_date']
                        end
       key_end_date = if index == last_index &&
-                        Date.parse(week_data['monday_date']) < end_date &&
-                        end_date < Date.parse(week_data['sunday_date'])
+                        Date.parse(week_data['monday_date']) <= end_date &&
+                        end_date <= Date.parse(week_data['sunday_date'])
                        end_date_string
                      else
                        week_data['sunday_date']
