@@ -18,24 +18,24 @@ class Applicant < ActiveRecord::Base
                       with:
                         /\A\d?\-?\(?\d{3}(\-|\.|\))\s?\d{3}(\-|\.)?\d{4}(\s?x\d{3,4})?\z/,
                       message: 'invalid format. please ensure the ' \
-                               'telephone number is formated as 555-555-5555'
+                               'telephone number is formated as ' \
+                               '555-555-5555, (555) 555-5555, ' \
+                               'or 555-555-555 x1234'
                     }
   validates :phone_type, presence: true
   validates :workflow_state, presence: true
   validates :region, presence: true
 
   def format_phone
+    return if (self.phone =~ /\A\d+\z/).nil?
     phone = self.phone
-    unless phone.include?('x')
-      phone = self.phone.gsub(/[^\d]/, '')
-      self.phone = if phone.length > 6 && phone.length <= 10
-                     phone.insert(3, '-').insert(7, '-')
-                   elsif phone.length >= 11
-                     phone.insert(1, '-').insert(5, '-').insert(9, '-')
-                   else
-                     phone
-                   end
-    end
+    self.phone = if phone.length > 6 && phone.length <= 10
+                   phone.insert(3, '-').insert(7, '-')
+                 elsif phone.length >= 11
+                   phone.insert(1, '-').insert(5, '-').insert(9, '-')
+                 else
+                   phone
+                 end
   end
 
   def self.workflow_states_by_week(start_date, end_date)
