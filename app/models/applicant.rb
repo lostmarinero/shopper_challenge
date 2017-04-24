@@ -25,14 +25,17 @@ class Applicant < ActiveRecord::Base
   validates :region, presence: true
 
   def format_phone
-    phone = self.phone.gsub(/[^\d]/, '')
-    self.phone = if phone.length > 6 && phone.length <= 10
-                   phone.insert(3, '-').insert(7, '-')
-                 elsif phone.length >= 11
-                   phone.insert(1, '-').insert(5, '-').insert(9, '-')
-                  else
-                   phone
-                 end
+    phone = self.phone
+    unless phone.include?('x')
+      phone = self.phone.gsub(/[^\d]/, '')
+      self.phone = if phone.length > 6 && phone.length <= 10
+                     phone.insert(3, '-').insert(7, '-')
+                   elsif phone.length >= 11
+                     phone.insert(1, '-').insert(5, '-').insert(9, '-')
+                   else
+                     phone
+                   end
+    end
   end
 
   def self.workflow_states_by_week(start_date, end_date)

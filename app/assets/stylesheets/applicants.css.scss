@@ -12,10 +12,6 @@
     border-radius: 3px;
     margin: 0 auto;
 
-    .legal-stuff {
-      text-align: left;
-    }
-
     .profile-info {
       margin-bottom: 2rem;
 
@@ -31,10 +27,40 @@
       font-weight: bold;
     }
   }
+
+  .consent-container{
+    .title {
+      text-align: left;
+    }
+  }
+
+  .one-thing {
+    font-size: 4rem;
+  }
 }
+
 
 /*****************
  2. Applicant New Styling
+******************/
+#background-check-consent-form {
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .title, .subtitle {
+    text-align: left;
+  }
+}
+
+.applicant_background_check_consent .checkbox label {
+  font-weight: bold;
+}
+
+
+/*****************
+ 3. Applicant New Styling
 ******************/
 
 .shopper-application {
